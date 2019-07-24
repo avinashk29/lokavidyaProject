@@ -1,0 +1,52 @@
+<div class="user">
+
+      <div class="userList">
+        <div class="user-list-data">
+          <div *ngFor = "let user of Users; let i = index">
+              <mat-list>
+                  <mat-list-item> <h2 (click)="Getuser(user)" >{{i+1}}  {{user.name}} </h2> </mat-list-item>
+            </mat-list>
+          </div>
+        </div>
+
+      </div>
+
+      <div class = "userData" *ngIf = "this.selectedUser.phone">
+          <mat-card>
+         <div *ngIf = "!this.onEdit">
+            <mat-list>
+                <mat-list-item>
+                  <label>Name:</label>
+                   {{this.selectedUser.name}}
+                  </mat-list-item>
+                    <mat-list-item>
+                        <label>Username:</label>
+                      {{this.selectedUser.username}}
+                    </mat-list-item>
+                        <mat-list-item>
+                            <label>Email:</label>
+                           {{this.selectedUser.email}}
+                          </mat-list-item>
+                            <mat-list-item>
+                                <label>Website:</label>
+                               {{this.selectedUser.website}}
+                              </mat-list-item>
+          </mat-list>
+         </div>
+</mat-card>
+<mat-card>
+        <form [formGroup] = "userForm" *ngIf = "onEdit" class="example-form" >
+        <mat-form-field  class="example-full-width" ><input placeholder="Name" type="text" matInput formControlName = "name"  name="name" [(ngModel)] = this.selectedUser.name></mat-form-field>
+        <small *ngIf = "!this.userForm.valid" style="color:red;">Name is required</small>
+        <mat-form-field  class="example-full-width" ><input type="text" placeholder="Username" matInput formControlName = "username"  name="username" [(ngModel)] = this.selectedUser.username ></mat-form-field>
+        <mat-form-field  class="example-full-width" > <input type="email" placeholder="Email" matInput formControlName = "email"  name="email" [(ngModel)] = this.selectedUser.email></mat-form-field>
+        <mat-form-field  class="example-full-width" > <input type="text" placeholder="Website" matInput  formControlName = "website"  name="website" [(ngModel)] = this.selectedUser.website></mat-form-field>
+
+        </form>
+        <button (click) = "onDelete(this.selectedUser.id ,this.selectedUser.name)" style="margin-right: 20px" >Delete</button>
+        <button *ngIf = "!onEdit" (click) = "this.onEdit = true">Update</button>
+        <button type="submit" (click) = "onUpdate(this.selectedUser.id)" *ngIf = "onEdit" [disabled] = "!this.userForm.valid">Save</button>
+      </mat-card>
+        </div>
+</div>
+
