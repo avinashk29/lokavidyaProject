@@ -13,6 +13,7 @@ export class HomepageComponent implements OnInit {
 selectedUser = [''];
 Users: any;
 onEdit = false;
+show = false;
 userForm = new FormGroup({
 name: new FormControl('', Validators.required),
 username: new FormControl(),
@@ -26,10 +27,12 @@ website: new FormControl()
   });
   }
   Getuser(user): void {
+    this.show = true;
     console.log(user);
     this.selectedUser = user;
   }
   onDelete(id , name) {
+    this.show = false;
     console.log(id);
     if (confirm('Are you sure you want to delete' + ' ' + name )) {
       this.userService.onDelete(id).subscribe(user => {
